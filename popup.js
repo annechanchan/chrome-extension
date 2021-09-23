@@ -185,7 +185,7 @@ const selectedResidents = {
 // render the page
     // add an event listener to the button
     // add event l
-    isteners to each of the x buttons
+//    isteners to each of the x buttons
 // re-render in 1 1 second
 
 // define the button function
