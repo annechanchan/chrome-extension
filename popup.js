@@ -185,11 +185,7 @@ const selectedResidents = {
 // render the page
     // add an event listener to the button
     // add event l
-<<<<<<< HEAD
-//    isteners to each of the x buttons
-=======
     //listeners to each of the x buttons
->>>>>>> fd05460886f1661463702965ad88eafdee47616b
 // re-render in 1 1 second
 
 // define the button function
@@ -216,55 +212,9 @@ const selectedResidents = {
 Page Functionality ---------------------------------------------------
 */
 
-function renderResident(resident) {
-    try {
-        //obtain all resident details needed for fetch request and obtain JSON object from API
-        const lat = residentObject[resident]['lat'];
-        const lng = residentObject[resident]['lng'];
-        const loc = residentObject[resident]['location'];
-        const url = `https://api.timezonedb.com/v2.1/get-time-zone?key=ICFMCYC7HOA7&format=json&by=position&lat=${lat}&lng=${lng}`;
-        fetch(url)
-            .then((res)=> res.json())
-            .then((res) => res.formatted.slice(11,19))
-            .then((time) => {
-                //const data = await res.json();
-                //const time = data.timestamp.toLocaleTimeString();
-                //const time = data.formatted.slice(11,19);
-                //time = tConvert(time);
-                
-                //create div for the resident
-                newResidentDiv = document.createElement('div');
-                newResidentDiv.classList.add('resident');
-                newResidentDiv.setAttribute('id', resident)
-                parentElement.appendChild(newResidentDiv);
-                //appendChildElement.innerText = residentObject[resident]['name'] + ': ' + time;
-                nameDiv = document.createElement('div');
-                nameDiv.classList.add('resident-name');
-                nameDiv.innerText = residentObject[resident]['name'];
-                newResidentDiv.appendChild(nameDiv);
-        
-                button = document.createElement('button');
-                button.classList.add('remove-button');
-                button.innerText = 'x';
-                newResidentDiv.appendChild(button);
-        
-                locDiv = document.createElement('div');
-                locDiv.classList.add('loc');
-                locDiv.innerText = loc;
-                newResidentDiv.appendChild(locDiv);
-        
-                timeDiv = document.createElement('div');
-                timeDiv.classList.add('time');
-                timeDiv.innerText = time;
-                newResidentDiv.appendChild(timeDiv);
-            })
-            .then(sleeper(2000));
-    } catch (err) {
-        console.log(err);
-    }
-}
 
-//-----------------------
+
+//---------Third Party Functions--------------
 
 function removeAllChildNodes(parent) {
     while (parent.firstChild) {
@@ -280,13 +230,25 @@ function sleeper(ms) {
 
 //---------------
 
+document.addEventListener('DOMContentLoaded', async () => {
+    renderApp();
+    setInterval(renderApp, 20000);   
+});
+
+// const interval = 2000;
+// const promise = Promise.resolve();
+
 function renderApp() {
-    parentElement = document.getElementById('residents');
+    residentsDiv = document.getElementById('residents');
     dropdownList = document.getElementById('residentToAdd');
+    removeAllChildNodes(dropdownList);
     console.log(selectedResidents);
     let flag = false;
     for (const resident in selectedResidents) {
         // if the resident isn't being followed
+        // promise = promise.then(function () => {
+            
+        // })
         if (selectedResidents[resident] === false){
             //add them to the dropdown list
             dropdownListItem = document.createElement('option');
@@ -302,19 +264,24 @@ function renderApp() {
             }
         // otherwise, if the resident is being followed
         } else {
-            flag = true;
-            // if a div doesn't exist for the resident
-            if(document.getElementById(resident) === null) {
-                // create it
-                renderResident(resident);
-            } else {
-                let element = document.getElementById(resident);
-                element.parentNode.removeChild(element);
-                renderResident(resident);
+                flag = true;
+                // if a div doesn't exist for the resident
+                if(document.getElementById(resident) === null) {
+                    // create it
+                    renderResident(resident);
+                } else {
+                    let element = document.getElementById(resident);
+                    element.parentNode.removeChild(element);
+                    renderResident(resident);
+                };
+                // return new Promise(function(resolve) {
+                //     setTimeout(resolve, interval);
+                //   });
             }
         }
-    }
+    //}
     
+    //add event listener to the remove button
     if (flag === true) {
         document.getElementById('remove-button').addEventListener('click', function(e) {
             let keyName;
@@ -327,8 +294,6 @@ function renderApp() {
             renderApp();
         });
     }
-
-
 
     document.getElementById('button').addEventListener('click', function() {
     let keyName;
@@ -344,7 +309,62 @@ function renderApp() {
 
 //---------------------
 
-document.addEventListener('DOMContentLoaded', async () => {
-    renderApp();
-    setInterval(renderApp, 5000);    
-});
+function renderResident(resident) {
+   // try {
+        //obtain all resident details needed for fetch request and obtain JSON object from API
+        const lat = residentObject[resident]['lat'];
+        const lng = residentObject[resident]['lng'];
+        const loc = residentObject[resident]['location'];
+        const url = `https://api.timezonedb.com/v2.1/get-time-zone?key=ICFMCYC7HOA7&format=json&by=position&lat=${lat}&lng=${lng}`;
+        time = fetch(url)
+            .then((res)=> res.json())
+            .then((res) => res.formatted.slice(11,19))
+            .then((time) => {
+                //const data = await res.json();
+                //const time = data.timestamp.toLocaleTimeString();
+                //const time = data.formatted.slice(11,19);
+                //time = tConvert(time);
+                console.log(time);
+
+                //create div for the resident
+                newResidentDiv = document.createElement('div');
+                newResidentDiv.classList.add('resident');
+                newResidentDiv.setAttribute('id', resident)
+                residentsDiv.appendChild(newResidentDiv);
+
+                //create div for the name
+                nameDiv = document.createElement('div');
+                nameDiv.classList.add('resident-name');
+                nameDiv.innerText = residentObject[resident]['name'];
+                newResidentDiv.appendChild(nameDiv);
+        
+                //create a div for the button
+                buttonDiv = document.createElement('div');
+                buttonDiv.classList.add('button-container');
+                newResidentDiv.appendChild(buttonDiv);
+                button = document.createElement('button');
+                button.classList.add('remove-button');
+                button.innerText = 'x';
+                buttonDiv.appendChild(button);
+                
+                //create a div for the location
+                locDiv = document.createElement('div');
+                locDiv.classList.add('loc');
+                locDiv.innerText = loc;
+                newResidentDiv.appendChild(locDiv);
+        
+                //create a div for the time
+                timeDiv = document.createElement('div');
+                timeDiv.classList.add('time');
+                timeDiv.innerText = time;
+                newResidentDiv.appendChild(timeDiv);
+            })
+            .catch( () => console.log(err))
+            console.log("The time is: ");
+            console.log(time);
+
+            //.then(sleeper(2000))
+   // } catch (err) {
+   //     console.log(err);
+  //  }
+}
