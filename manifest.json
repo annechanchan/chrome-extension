@@ -1,0 +1,16 @@
+{
+    "name": "Our Cool Extension",
+    "description": "This extension displays time zones and weather data for fellow Codesmith residents.",
+    "version": "1.0",
+    "manifest_version": 2,
+    "icons":{
+      "16":"codesmithLogo.png"
+    },
+    "browser_action": {
+     "default_icon": "codesmithLogo.png",
+     "default_popup": "popup.html",
+     "default_title": "Our Cool Extension"
+    },
+    
+    "permissions": ["storage"]
+  }

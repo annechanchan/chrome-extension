@@ -1,0 +1,28 @@
+.html{
+    background-color: #112F77;
+}
+
+#extension-name{
+    font-family: 'Montserrat, sans-serif';
+    font-size: 14px;
+    margin: 10px;
+    white-space: nowrap;
+}
+
+.resident{
+ background-color: #56C1AA;
+ margin: 10px;
+
+}
+
+.resident-name{
+    font-weight: bold;
+}
+
+.time{
+
+}
+
+.loc{
+    
+}

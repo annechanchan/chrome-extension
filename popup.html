@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            div#extension-title{
+                font-family: Montserrat, sans-serif;
+                font-size: 20px;
+                margin: 10px;
+                white-space: nowrap;
+                color: white;
+                font-weight: bold;
+            }
+
+            html{
+                background-color: #112F77;
+            }
+
+            .resident{
+            background-color: #56C1AA;
+            margin: 5px;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 16px;
+            float: left;
+            width: 85%
+            }
+
+            .resident-name{
+                font-weight: bold;
+                margin-top: 0;
+                margin-bottom: 0;
+                color: white;
+            }
+
+            .time{
+                margin-top: 0;
+                margin-bottom: 0;
+                display: inline-block;
+                text-align: right;
+                color: white;
+                float: right;
+            }
+
+            .loc{
+                font-style: italic;
+                margin-top: 0;
+                margin-bottom: 0;
+                display: inline-block;
+                color: white;
+                float: left;
+            }
+
+            .remove-button{
+                color: red;
+                background-color: white;
+                border-radius: 3px;
+                border: 1px solid #112F77;
+                position:relative;
+                float: right;
+                display: inherit;
+            }
+
+            #residentToAdd {
+                margin-left: 5px;
+            }
+            #button {
+                color: white;
+                background-color: #56C1AA;
+                border-radius: 3px;
+                border: 1px solid black;
+            }
+        </style>
+    </head>    
+    <body>
+        <div id="extension-title">Our Cool Extension</div>
+        <div id="residents"></div>
+        <div id="residentSelector">
+            <select name="residentToAdd" id="residentToAdd">
+            </select>
+            <button id='button'>Add Resident</button> 
+        </div>
+        <script src="popup.js"></script>
+    </body>
+</html>
